@@ -8,9 +8,11 @@ import pandas as pd
 import csv
 import pandas as pd
 import num as nu
+import numpy as np
 
 
-dataset = list(reader(open('/Users/apple/PycharmProjects/Apriori/python3-fp-growth-master/dataset/4-18.csv')))
+
+dataset = list(reader(open('/Users/apple/PycharmProjects/Apriori/python3-fp-growth-master/student_id.csv')))
 
 
 # 数据集
@@ -33,7 +35,7 @@ if __name__ == '__main__':
     '''
     #print(nu.get_num(1,'/Users/apple/PycharmProjects/Apriori/python3-fp-growth-master/dataset/3-25.csv'))
     #print(nu.get_num(0,'/Users/apple/PycharmProjects/Apriori/python3-fp-growth-master/dataset/3-22.csv'))
-    frequent_itemsets = fpg.find_frequent_itemsets(dataset, minimum_support=1,include_support=True)
+    frequent_itemsets = fpg.find_frequent_itemsets(dataset, minimum_support=2,include_support=True)
     #print(type(frequent_itemsets))   # print type
 
     result = []
@@ -41,8 +43,13 @@ if __name__ == '__main__':
         result.append((itemset, support))
 
     result = sorted(result, key=lambda support: support[0])   # 排序后输出
+    print(result)
+    f = open('频繁项集.csv', 'w', encoding='utf-8')
+    csv_writer = csv.writer(f)
+    csv_writer.writerow(["频繁项集", "支持度"])
     for itemset, support in result:
-        print(str(itemset) + ',' + str(support))
+        csv_writer.writerow([itemset, support])
+#print(str(itemset) + ',' + str(support))
 
 
 
